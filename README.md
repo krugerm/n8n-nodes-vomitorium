@@ -1,46 +1,126 @@
-![Banner image](https://user-images.githubusercontent.com/10284570/173569848-c624317f-42b1-45a6-ab09-f0ea3c247648.png)
+# Vomitorium Node for n8n
 
-# n8n-nodes-starter
+## Overview
 
-This repo contains example nodes to help you get started building your own custom integrations for [n8n](n8n.io). It includes the node linter and other dependencies.
+The Vomitorium Node is a custom node for n8n that recursively scans directories, processes files based on configurable criteria, and writes the contents to an output file. This node is inspired by the `vomitorium` project [https://github.com/JWally/vomitorium] and is designed to be integrated into n8n workflows to automate LLM file processing tasks.
 
-To make your custom node available to the community, you must create it as an npm package, and [submit it to the npm registry](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry).
+## Features
 
-## Prerequisites
+- **Directory Scanning**: Recursively scans directories starting from a specified root path.
+- **Include/Exclude Patterns**: Configurable patterns to include or exclude certain directories and files from processing.
+- **File Extension Filtering**: Process only files with specific extensions.
+- **Output Control**: Optionally log excluded and skipped files, and write processed file contents to a specified output file.
+- **Custom Configuration**: Supports configuration through node properties or a `cosmiconfig` configuration file.
 
-You need the following installed on your development machine:
+## Installation
 
-* [git](https://git-scm.com/downloads)
-* Node.js and pnpm. Minimum version Node 18. You can find instructions on how to install both using nvm (Node Version Manager) for Linux, Mac, and WSL [here](https://github.com/nvm-sh/nvm). For Windows users, refer to Microsoft's guide to [Install NodeJS on Windows](https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-windows).
-* Install n8n with:
-  ```
-  pnpm install n8n -g
-  ```
-* Recommended: follow n8n's guide to [set up your development environment](https://docs.n8n.io/integrations/creating-nodes/build/node-development-environment/).
+1. **Clone the Repository:**
 
-## Using this starter
-
-These are the basic steps for working with the starter. For detailed guidance on creating and publishing nodes, refer to the [documentation](https://docs.n8n.io/integrations/creating-nodes/).
-
-1. [Generate a new repository](https://github.com/n8n-io/n8n-nodes-starter/generate) from this template repository.
-2. Clone your new repo:
+   ```bash
+   git clone https://github.com/krugerm/n8n-vomitorium-node.git
+   cd n8n-vomitorium-node
    ```
-   git clone https://github.com/<your organization>/<your-repo-name>.git
+
+2. **Build the Project:**
+
+   Ensure you have Node.js installed.
+
+   ```bash
+   npm install
+   npm run build
    ```
-3. Run `pnpm i` to install dependencies.
-4. Open the project in your editor.
-5. Browse the examples in `/nodes` and `/credentials`. Modify the examples, or replace them with your own nodes.
-6. Update the `package.json` to match your details.
-7. Run `pnpm lint` to check for errors or `pnpm lintfix` to automatically fix errors when possible.
-8. Test your node locally. Refer to [Run your node locally](https://docs.n8n.io/integrations/creating-nodes/test/run-node-locally/) for guidance.
-9. Replace this README with documentation for your node. Use the [README_TEMPLATE](README_TEMPLATE.md) to get started.
-10. Update the LICENSE file to use your details.
-11. [Publish](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry) your package to npm.
 
-## More information
+3. **Add to n8n:**
 
-Refer to our [documentation on creating nodes](https://docs.n8n.io/integrations/creating-nodes/) for detailed information on building your own nodes.
+   Copy the compiled node to your n8n custom nodes directory. The exact location may vary depending on your n8n setup. Typically, you would place it under the `nodes` directory of your n8n instance.
+
+   ```bash
+   cp -r dist /path/to/your/n8n/custom/nodes/
+   ```
+
+4. **Restart n8n:**
+
+   Restart your n8n instance to load the new node.
+
+   ```bash
+   n8n start
+   ```
+
+## Usage
+
+Once the Vomitorium Node is added to your n8n instance, you can use it in your workflows as follows:
+
+1. **Add the Node:**
+   Drag and drop the Vomitorium Node into your workflow.
+
+2. **Configure the Node:**
+
+   - **Scan Directory**: Set the directory to start scanning. Defaults to the current working directory (`.`).
+   - **Include Directories**: Specify a comma-separated list of directories to include in the scan.
+   - **Exclude Patterns**: Specify a comma-separated list of directories or files to exclude from the scan.
+   - **File Extensions**: Specify a comma-separated list of file extensions to include for processing (e.g., `.js,.ts,.json`).
+   - **Show Excluded**: Toggle whether to show excluded files in the output.
+   - **Show Skipped**: Toggle whether to show skipped files without listing their contents.
+   - **Output File**: Specify the name of the output file where processed contents will be written.
+
+3. **Run the Workflow:**
+   Execute the workflow, and the Vomitorium Node will process files according to the configuration, logging its activities and writing results to the output file.
+
+## Configuration
+
+The Vomitorium Node supports configuration through the node properties or a `vomitorium` configuration file using `cosmiconfig`. The configuration file can be in JSON, YAML, or JavaScript format, and should be placed in your project root.
+
+### Example Configuration File (`vomitorium.config.js`)
+
+```javascript
+module.exports = {
+	scan: './src',
+	include: ['lib', 'tests'],
+	exclude: ['node_modules', '.git', 'dist'],
+	extensions: ['.js', '.ts', '.json'],
+	showExcluded: true,
+	showSkipped: true,
+	outputFile: 'output.sick',
+};
+```
+
+## Development
+
+### Prerequisites
+
+- Node.js (v14 or later)
+- n8n setup (with custom nodes enabled)
+
+### Building the Project
+
+After cloning the repository, run:
+
+```bash
+npm install
+npm run build
+```
+
+### Testing
+
+To test the node, you can use the `npm link` feature to link the package to your n8n installation for development purposes:
+
+```bash
+npm link
+cd /path/to/your/n8n/
+npm link n8n-vomitorium-node
+n8n start
+```
+
+This will allow you to test the node directly within your n8n instance.
+
+## Contributing
+
+Contributions are welcome! Please fork the repository, make your changes, and submit a pull request.
 
 ## License
 
-[MIT](https://github.com/n8n-io/n8n-nodes-starter/blob/master/LICENSE.md)
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Acknowledgements
+
+This project was inspired by the original `vomitorium` script and adapted for use in n8n.

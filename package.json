@@ -1,19 +1,19 @@
 {
-  "name": "n8n-nodes-<...>",
+  "name": "n8n-nodes-vomitorium",
   "version": "0.1.0",
-  "description": "",
+  "description": "Vomitorium is designed to easily load an entire project into a single text file. It recursively scans directories, processes files, and compiles their contents into a single output file. Useful for working with LLMs.",
   "keywords": [
-    "n8n-community-node-package"
+    "n8n-community-node-package",
+    "vomitorium"
   ],
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://github.com/JWally/vomitorium",
   "author": {
-    "name": "",
-    "email": ""
+    "name": "JWally"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/<...>/n8n-nodes-<...>.git"
+    "url": "https://github.com/krugerm/n8n-nodes-vomitorium.git"
   },
   "engines": {
     "node": ">=18.10",
@@ -36,15 +36,14 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/ExampleCredentialsApi.credentials.js",
-      "dist/credentials/HttpBinApi.credentials.js"
+      "dist/credentials/vomitorium.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/ExampleNode/ExampleNode.node.js",
-      "dist/nodes/HttpBin/HttpBin.node.js"
+      "dist/nodes/vomitorium/vomitorium.node.js"
     ]
   },
   "devDependencies": {
+    "@types/node": "^22.7.3",
     "@typescript-eslint/parser": "^7.15.0",
     "eslint": "^8.56.0",
     "eslint-plugin-n8n-nodes-base": "^1.16.1",
@@ -55,5 +54,9 @@
   },
   "peerDependencies": {
     "n8n-workflow": "*"
+  },
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "path": "^0.12.7"
   }
 }
