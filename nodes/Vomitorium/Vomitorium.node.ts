@@ -177,3 +177,5 @@ export class VomitoriumNode implements INodeType {
 		return this.prepareOutputData([]);
 	}
 }
+
+export default VomitoriumNode;

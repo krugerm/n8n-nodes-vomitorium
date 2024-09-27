@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Vomitorium Node is a custom node for n8n that recursively scans directories, processes files based on configurable criteria, and writes the contents to an output file. This node is based on the `vomitorium` project [https://github.com/JWally/vomitorium] and is designed to be integrated into n8n workflows to automate LLM file processing tasks.
+The Vomitorium Node is a custom node for n8n that recursively scans directories, processes files based on configurable criteria, and writes the contents to an output file. This node is copied from the `vomitorium` project [https://github.com/JWally/vomitorium] and is designed to be integrated into n8n workflows to automate LLM file processing tasks.
 
 ## Features
 
@@ -57,7 +57,7 @@ outputFile: 'vomit.txt',
 
 ## Version history
 
-- **1.0.0**: Initial release of the Vomitorium node.
+- **0.1.0**: Initial release of the Vomitorium node.
 
 ## Acknowledgements
 
