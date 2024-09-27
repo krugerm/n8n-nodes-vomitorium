@@ -36,7 +36,6 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/vomitorium.credentials.js"
     ],
     "nodes": [
       "dist/nodes/vomitorium/vomitorium.node.js"
